@@ -1,10 +1,10 @@
 # Net-Habitat
 
-A research spike investigating isolated .Net framework enronments for running Habitat applications.
+A research spike investigating isolated .Net framework environments for running Habitat applications.
 
 ## Discusion
 
-This readme is intended to explain the structure of the repo. For discussion around research approaches and outcomes see [discusion.md](discusion.md).
+This readme is intended to explain the structure of the repo. For discussion around research approaches and outcomes see [discussion.md](discussion.md).
 
 ## framework
 
@@ -14,13 +14,13 @@ Due to size, these files are ignored by git. The `Copy-Framework.ps1` bootstrapp
 
 ## net-apps
 
-Contains individual .net applications intended to consume the framework in this repo. Ideally we want at least a simple cli and a asp.net web app represented here.
+Contains individual .net applications intended to consume the framework in this repo. Ideally we want at least a simple cli and an asp.net web app represented here.
 
 The top level `net-apps` folder contains a Visual Studio 2015 `.sln` file. The apps are created and built inside of Visual Studio.
 
 ## scripts
 
-Powershell scripts to automate various tasks. Some may mimic what will eventually be done in Habitat and others may simply exist as convenience functionsn to automate tasks required for the research effort.
+Powershell scripts to automate various tasks. Some may mimic what will eventually be done in Habitat and others may simply exist as convenience functions to automate tasks required for the research effort.
 
 ### Copy-Framework
 
