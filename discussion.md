@@ -39,4 +39,14 @@ Based on this we can determine all GAC based assemblies that a .net app depends 
 
 I have confirmed that this works. If you build and run the .net cli app in this repo, you should not find any assemblies loaded from the system GAC.
 
+## `COMPLUS_version` and msvcr120_clr0400.dll
 
+As noted above, after applying the appropriate `COMPLUS_InstallRoot`, turning on `developmentMode` and setting the `DEVPATH`, one can see all asseblies being loaded from the isolated framework location. To further test anisolated framework scenario, I copied this repo and its v4 .net runtime bits to a vanilla 2008R2 machine with no v4 .net runtime installed. After invoking the net-cli.exe, .net immediately crashed.
+
+Ther are two other items that must be set when transporting isolated .net runtime to a machine that does not have that version installed.
+
+1. The native version of .net will try to determine the version of .net to be invoked. On 2008R2 this is v2. So it will then try to locate the framework bits in `/net-habitat/framework/v2.0.50727` which does not exist. Setting `COMPLUS_version` to v4.0.30319 will allow the correct framework directory to be loaded on a non v4 installed machine.
+
+2. The clr C runtime dll `msvcr120_clr0400.dll` which lives in `%WINDIR%\system32` and `%WINDIR%\syswow64`. This file can be copied to the root of this repo or under `framework`
+
+After following both steps above, the executable ran on 2008R2.
