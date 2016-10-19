@@ -55,8 +55,10 @@ After following both steps above, the executable ran on 2008R2.
 
 I don't think reflection will be a reliable method for discovering assemblies. The reason being that reflection will only find assemblies currently loaded and that means you'd have to "prime" the app to follow all code paths.
 
-You could create a tree by traversing the `GetReferencedAssemblies` method of all loaded asseblies which theoretically should find everything. However I believe that is only available on v4 runtimes.
+You could create a tree by traversing the [`GetReferencedAssemblies`](https://msdn.microsoft.com/en-us/library/system.reflection.assembly.getreferencedassemblies(v=vs.80).aspx) method of all loaded asseblies which theoretically should find everything. This API is available for .NET 2.0 and greater runtimes.
 
 Another option is to scan project files for referenced assemblies.
 
 I'm sure there are other methods as well we can experiment with.
+
+[Steve] While I believe autodiscovering dependencies is going to be a big helper, there will always be a way that's hidden by conditional logic or some other pattern that is not discoverable at build time.  Ultimately, it becomes the plan author's responsibility to describe build and runtime dependencies.  
