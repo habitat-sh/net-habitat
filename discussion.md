@@ -47,6 +47,16 @@ Ther are two other items that must be set when transporting isolated .net runtim
 
 1. The native version of .net will try to determine the version of .net to be invoked. On 2008R2 this is v2. So it will then try to locate the framework bits in `/net-habitat/framework/v2.0.50727` which does not exist. Setting `COMPLUS_version` to v4.0.30319 will allow the correct framework directory to be loaded on a non v4 installed machine.
 
-2. The clr C runtime dll `msvcr120_clr0400.dll` which lives in `%WINDIR%\system32` and `%WINDIR%\syswow64`. This file can be copied to the root of this repo or under `framework`
+2. The clr C runtime dll `msvcr120_clr0400.dll` which lives in `%WINDIR%\system32` and `%WINDIR%\syswow64`. This file can be copied to the root of this repo or under `framework`/`framework64`.
 
 After following both steps above, the executable ran on 2008R2.
+
+## A note about discovering GAC'd assemblies
+
+I don't think reflection will be a reliable method for discovering assemblies. The reason being that reflection will only find assemblies currently loaded and that means you'd have to "prime" the app to follow all code paths.
+
+You could create a tree by traversing the `GetReferencedAssemblies` method of all loaded asseblies which theoretically should find everything. However I believe that is only available on v4 runtimes.
+
+Another option is to scan project files for referenced assemblies.
+
+I'm sure there are other methods as well we can experiment with.
