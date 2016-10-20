@@ -17,6 +17,8 @@ namespace net_cli
                 Console.Out.WriteLine(asm.FullName);
                 Console.Out.WriteLine(asm.CodeBase);
             }
+
+            Console.In.ReadLine();
         }
     }
 }
