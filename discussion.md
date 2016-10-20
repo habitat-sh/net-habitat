@@ -47,7 +47,7 @@ Ther are two other items that must be set when transporting isolated .net runtim
 
 1. The native version of .net will try to determine the version of .net to be invoked. On 2008R2 this is v2. So it will then try to locate the framework bits in `/net-habitat/framework/v2.0.50727` which does not exist. Setting `COMPLUS_version` to v4.0.30319 will allow the correct framework directory to be loaded on a non v4 installed machine.
 
-2. The clr C runtime dll `msvcr120_clr0400.dll` which lives in `%WINDIR%\system32` and `%WINDIR%\syswow64`. This file can be copied to the root of this repo or under `framework`/`framework64`.
+2. [The clr C runtime dll](http://stackoverflow.com/a/3879649/1233) `msvcr120_clr0400.dll` which lives in `%WINDIR%\system32` and `%WINDIR%\syswow64`. This file can be copied to the root of this repo or under `framework`/`framework64`.
 
 After following both steps above, the executable ran on 2008R2.
 
