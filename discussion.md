@@ -51,6 +51,15 @@ Ther are two other items that must be set when transporting isolated .net runtim
 
 After following both steps above, the executable ran on 2008R2.
 
+## Web Apps
+While all the same rules apply for `EXE`s and web applications. The process model differs and therefore injecting the environment variables and turning on development mode works differently.
+
+Web applications in IIS usually run in their own application pool and dedicated "worker process". IIS owns the job of starting the process which runs via `w3wp.exe`. By default, the process runs under a special "virtual user account" named after the ApplicationPoolIdentity which is the same name as the application pool. Also by default in later versions of IIS, the worker process loads this user's "profile" which includes environment variables.
+
+To add the correct environment variables for a web application, we need to add them to the `HKEY_USERS` hive under the `SID` of the Application Pool Identity.
+
+Further because `w3wp.exe` is the parent executable of the worker process, we need to add the developer mode configuration to a `w3wp.exe.config` file. The `Add-NetWeb.ps1` script in this repo automates the setup of the environment variables and the w3wp config file.
+
 ## A note about discovering GAC'd assemblies
 
 I don't think reflection will be a reliable method for discovering assemblies. The reason being that reflection will only find assemblies currently loaded and that means you'd have to "prime" the app to follow all code paths.
